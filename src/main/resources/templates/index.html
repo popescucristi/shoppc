@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Font Awesome icons (free version)-->
+    <script th:src="@{https://use.fontawesome.com/releases/v5.15.1/js/all.js}" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link th:href="@{https://fonts.googleapis.com/css?family=Varela+Round}" rel="stylesheet"/>
+    <link th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
+          rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="icon" type="image/x-icon" th:href="@{/img/full-computer.png}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+    <title>Acasă</title>
+</head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: black" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" th:href="@{/index}">PComponents</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger"
+                                        th:href="@{/}">Acasă</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                              th:href="@{/admin/UserListAdminHome}">Listă
+                    Useri</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                              th:href="@{/newProduct}">Adaugă produs
+                    nou</a></li>
+                <li sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="nav-item"><a
+                        class="nav-link js-scroll-trigger" th:href="@{/user/ProductsUserHome}">Produse</a></li>
+                <li sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="nav-item"><a
+                        class="nav-link js-scroll-trigger" th:href="@{/profil}">Profil</a></li>
+
+                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                      th:href="@{/login}">Conectează-te</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                      th:href="@{/register}">Crează-ți cont</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <form th:action="@{/logout}" method="get">
+                        <button class="btn-logout btn-danger btn-block" name="registration"
+                                type="Submit" style="margin-top: 4px;">Deconectare
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Masthead-->
+<header class="masthead">
+    <div class="container d-flex h-100 align-items-center">
+        <div class="mx-auto text-center">
+            <h1 class="mx-auto my-0 text-uppercase">Bine ați venit pe PComponents!</h1>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">Un magazin online care se ocupă cu vânzarea de echipamente și
+                componente IT.</h2>
+        </div>
+    </div>
+</header>
+
+<footer class="bg-black small text-center text-white-50 indexpag">
+    <div class="container">Anda Groza &amp; Flaviu Ivanciuc &amp; Cristi Popescu &amp; Ionuț Mărginean &copy; Școala
+        Informală de IT - Curs Java Developer - Proiect Final - PComponents
+    </div>
+</footer>
+
+</body>
+</html>

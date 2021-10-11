@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="UTF-8" name="viewport" content="width=device-width">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/full-computer.png}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
+    <!-- Font Awesome icons (free version)-->
+    <script th:src="@{https://use.fontawesome.com/releases/v5.15.1/js/all.js}" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link th:href="@{https://fonts.googleapis.com/css?family=Varela+Round}" rel="stylesheet"/>
+    <link th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
+          rel="stylesheet"/>
+          rel="stylesheet"/>
+    <title>Actualizare User</title>
+</head>
+
+<body class="background-register">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: black; border-radius:0;"
+     id="mainNav">
+    <div class="container-nav">
+        <a class="navbar-brand js-scroll-trigger" style="height: 46px;padding-top: 8px;padding-bottom: 8px;"
+           th:href="@{/index}"
+        >PComponents</a>
+    </div>
+</nav>
+
+<div class="container register-form" style="border-radius: 5px;border:1px solid #ccc;padding: 15px;margin-top: 50px;">
+    <h3> Profil</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-8">
+                <form th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Username</label> <input type="text" th:field="*{userName}"
+                                                                                  class="form-control"
+                                                                                  placeholder="Username"
+                                                                                  required="required"> <span
+                                th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                                class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="firstName" class="col-form-label">First Name</label> <input type="text"
+                                                                                                    th:field="*{firstName}"
+                                                                                                    class="form-control"
+                                                                                                    id="firstName"
+                                                                                                    placeholder="firstName"
+                                                                                                    required="required">
+                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="firstName"
+                                  class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="lastName" class="col-form-label">Last Name</label> <input type="text"
+                                                                                                  th:field="*{lastName}"
+                                                                                                  class="form-control"
+                                                                                                  id="lastName"
+                                                                                                  placeholder="lastName"
+                                                                                                  required="required"><span
+                                th:if="${#fields.hasErrors('lastName')}" th:errors="lastName"
+                                class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8" style="visibility: hidden">
+                            <label for="roles" class="col-form-label">Rol</label> <input type="text" th:field="*{roles}"
+                                                                                         class="form-control" id="roles"
+                                                                                         placeholder="roles"
+                                                                                         required="required"><span
+                                th:if="${#fields.hasErrors('roles')}" th:errors="roles" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="email" class="col-form-label">Email</label> <input type="text"
+                                                                                           th:field="*{email}"
+                                                                                           class="form-control"
+                                                                                           id="email"
+                                                                                           placeholder="Email"
+                                                                                           required="required"> <span
+                                th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="password" class="col-form-label">Password</label> <input type="password"
+                                                                                                 th:field="*{password}"
+                                                                                                 class="form-control"
+                                                                                                 id="password"
+                                                                                                 placeholder="Password"
+                                                                                                 required="required">
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="password"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <input type="submit" class="updatebtn" value="Actualizare User">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer bg-black small text-center text-white-50">
+    <div class="container-nav" style="font-size: 15px;">Anda Groza &amp; Flaviu Ivanciuc &amp; Cristi Popescu &amp;
+        Ionuț Mărginean &copy; Școala
+        Informală de IT - Curs Java Developer - Proiect Final - PComponents
+    </div>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Admin Page</title>
+    <!-- Font Awesome icons (free version)-->
+    <script th:src="@{https://use.fontawesome.com/releases/v5.15.1/js/all.js}" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link th:href="@{https://fonts.googleapis.com/css?family=Varela+Round}" rel="stylesheet"/>
+    <link th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
+          rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="icon" type="image/x-icon" th:href="@{/img/full-computer.png}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+</head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: black;" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" th:href="@{/index}">PComponents</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" th:href="@{/admin/index}">Acasă</a></li>
+<!--                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a class="nav-link js-scroll-trigger"-->
+<!--                                                                              th:href="@{/admin/UserListAdminHome}">Listă-->
+<!--                    Useri</a></li>-->
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                              th:href="@{/newProduct}">Adaugă produs
+                    nou</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger"
+                                        th:href="@{/user/ProductsUserHome}">Produse</a>
+
+                </li>
+                <li sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="nav-item"><a
+                        class="nav-link js-scroll-trigger" th:href="@{/profil}">Profil</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <form th:action="@{/logout}" method="GET">
+                        <button class="btn-logout btn-danger btn-block" name="registration"
+                                type="Submit" style="margin-top: 4px;">Deconectare
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <h4 class="admin">
+        <span th:utext="${userName}"></span></h4>
+
+    <table class="table table-striped">
+        <thead class="thead-light">
+        <tr>
+            <!--            <th>ID</th>-->
+            <th>User Name</th>
+            <th>Prenume</th>
+            <th>Nume</th>
+            <th>eMail</th>
+            <!--            <th>Rol</th>-->
+            <th>Sterge user</th>
+            <th>Modifică rolul</th>
+            <th>Modifică rolul</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user: ${listOfUsers}">
+            <!--            <td th:text="${user.id}"/>-->
+            <td th:text="${user.userName}"/>
+            <td th:text="${user.firstName}"/>
+            <td th:text="${user.lastName}"/>
+            <td th:text="${user.email}"/>
+            <!--            <td th:switch="${#lists.size(user.roles)}">-->
+            <!--                <span th:case="'1'">USER</span>-->
+            <!--                <span th:case="'2'">ADMIN</span>-->
+            <!--            </td>-->
+            <td>
+                <a class="btn btn-primary"
+                   th:href="@{/deleteUser/{id}(id=${user.id})}">Șterge</a>
+            </td>
+            <td>
+                <a class="btn btn-primary"
+                   th:href="@{/makeAdmin/{id}(id=${user.id})}">Admin</a>
+            </td>
+            <td>
+                <a class="btn btn-primary"
+                   th:href="@{/makeUser/{id}(id=${user.id})}">User</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="footer bg-black small text-center text-white-50">
+    <div class="container">Anda Groza &amp; Flaviu Ivanciuc &amp; Cristi Popescu &amp; Ionuț Mărginean &copy; Școala
+        Informală de IT - Curs Java Developer - Proiect Final - PComponents
+    </div>
+</footer>
+
+</body>
+</html>

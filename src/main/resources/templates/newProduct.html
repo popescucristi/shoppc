@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/full-computer.png}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
+    <!-- Font Awesome icons (free version)-->
+    <script th:src="@{https://use.fontawesome.com/releases/v5.15.1/js/all.js}" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link th:href="@{https://fonts.googleapis.com/css?family=Varela+Round}" rel="stylesheet"/>
+    <link th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
+          rel="stylesheet"/>
+    <title>Adăuga produs nou</title>
+</head>
+
+<body class="background-register">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: black; border-radius:0;"
+     id="mainNav">
+    <div class="container-nav">
+        <a class="navbar-brand js-scroll-trigger" style="height: 46px;padding-top: 8px;padding-bottom: 8px;"
+           th:href="@{/index}"
+        >PComponents</a>
+    </div>
+</nav>
+
+<div class="register-form">
+
+    <form autocomplete="off" action="#" th:action="@{/new-product}"
+          th:object="${product}" method="POST" role="form"
+          style="border-radius: 5px;border:1px solid #ccc;margin-top: 85px;">
+        <div class="container" style="height: 442px;">
+            <h1>Adăugare produs nou</h1>
+            <p>Vă rugăm completați acest formular pentru a crea un nou produs.</p>
+
+            <input type="text" th:field="*{photo}" placeholder="URL poză produs" name="photo" required>
+
+            <input type="text" th:field="*{productName}" placeholder="Titlu produs" name="productName" required>
+
+            <input type="text" th:field="*{productInformation}" placeholder="Descriere produs"
+                   name="productInformation"
+                   required>
+
+            <input type="text" th:field="*{productPrice}" placeholder="Preț produs" name="productPrice" required>
+
+            <div class="clearfix">
+                <a class="nav-link" th:href="@{/user/ProductsUserHome}">
+                    <button type="button" class="cancelbtn">Anulează</button>
+                </a>
+                <a class="nav-link" th:href="@{/newProduct}">
+                    <button type="submit" class="signupbtn">Adaugă produs</button>
+                </a>
+            </div>
+            <h4><span th:utext="${successMessage}"></span></h4>
+        </div>
+    </form>
+</div>
+
+<footer class="footer bg-black small text-center text-white-50">
+    <div class="container-nav" style="font-size: 15px;">Anda Groza &amp; Flaviu Ivanciuc &amp; Cristi Popescu &amp;
+        Ionuț Mărginean &copy; Școala Informală de IT - Curs Java Developer - Proiect Final - PComponents
+    </div>
+</footer>
+
+</body>
+</html>

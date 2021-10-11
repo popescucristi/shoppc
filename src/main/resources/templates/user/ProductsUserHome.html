@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Produse</title>
+    <!-- Font Awesome icons (free version)-->
+    <script th:src="@{https://use.fontawesome.com/releases/v5.15.1/js/all.js}" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link th:href="@{https://fonts.googleapis.com/css?family=Varela+Round}" rel="stylesheet"/>
+    <link th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
+          rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="icon" type="image/x-icon" th:href="@{/img/full-computer.png}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ProductsUserHome.css}"/>
+    <script type="text/javascript">
+        function clearSearch() {
+            window.location = "[[@{/user/ProductsUserHome}]]";
+        }
+
+
+
+
+    </script>
+</head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: black" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" th:href="@{/index}">PComponents</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form th:action="@{/search}" style="margin-top: 5px;">
+                        <input class="input-search" type="text" name="keyword" id="keyword" size="50"
+                               th:value="${keyword}"
+                               placeholder="Căutare"
+                               style="width: 204px; background-color: #707070; color: #ffffff; box-shadow: none; font-weight:550;"
+                               required/>
+                        &nbsp;
+                        <input class="btn-search" type="submit" value="Search"/>
+                        &nbsp;
+                        <input class="btn-search" type="button" value="Clear" id="btnClear" onclick="clearSearch()"/>
+                    </form>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" style="font-size: 15px; padding: 9px;"
+                                        th:href="@{/user/index}">Acasă</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                              style="font-size: 15px; padding: 9px;"
+                                                                              th:href="@{/admin/UserListAdminHome}">Listă
+                    Useri</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                              style="font-size: 15px; padding: 9px;"
+                                                                              th:href="@{/newProduct}">Adaugă produs
+                    nou</a></li>
+                <!--                <li class="nav-item"><a class="nav-link js-scroll-trigger" style="font-size: 15px; padding: 9px;"-->
+                <!--                                        th:href="@{/user/ProductsUserHome}">Produse</a>-->
+                <li sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="nav-item"><a
+                        class="nav-link js-scroll-trigger" style="font-size: 15px; padding: 9px;" th:href="@{/profil}">Profil</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <form th:action="@{/logout}" method="GET">
+                        <button class="btn-logout btn-danger btn-block" name="registration"
+                                type="Submit" style="margin-top: 4px;">Deconectare
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h4><span th:utext="${userName}"></span></h4>
+
+<div>
+    <table class="products table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th>Imagine</th>
+            <th>Denumire produs</th>
+            <th>Specificații</th>
+            <th>Preț</th>
+            <th>Stoc</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Modifică</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Șterge</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="product: ${productsList}">
+            <td><img th:src="${product.photo}"/></td>
+            <td th:text="${product.productName}"/>
+            <td th:text="${product.productInformation}"/>
+            <td th:text="${product.productPrice}"/>
+            <td th:text="${product.stock} ? 'În stoc' : 'Stoc epuizat'"/>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn btn-primary"
+                   th:href="@{/editProduct/{id}(id=${product.idProduct})}">Modifică</a>
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn btn-primary"
+                   th:href="@{/delete/{id}(id=${product.idProduct})}">Șterge</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+<footer class="footer bg-black small text-center text-white-50">
+    <div class="container">Anda Groza &amp; Flaviu Ivanciuc &amp; Cristi Popescu &amp; Ionuț Mărginean &copy; Școala
+        Informală de IT - Curs Java Developer - Proiect Final - PComponents
+    </div>
+</footer>
+
+</html>
